@@ -22,13 +22,17 @@ add_action('admin_init', 'config_init');
 register_activation_hook( __FILE__, 'initCreateTableUniko' );
 
 add_shortcode('pedigree', 'showShortcode');
+function cssPedigree() {
+    echo '<link rel="stylesheet" type="text/css" href="'.plugins_url('/css/pedigree-template.css',__FILE__ ).'">';
+    
+}
+add_action('wp_head', 'cssPedigree');
 if (! function_exists('config_init')) {
 	function config_init()
 	{
-		wp_register_style('bootstrap', plugins_url('/css/bootstrap.min.css',__FILE__ ));
+		wp_register_style('bootstrap', plugins_url('/css/bootstrap.css',__FILE__ ));
 		wp_enqueue_style('bootstrap');
-		wp_register_style('pedigree-template', plugins_url('/css/pedigree-template.css',__FILE__ ));
-	    wp_enqueue_style('pedigree-template');
+
 	    wp_register_script( 'jquery', plugins_url('/js/jquery-3.3.1.min.js',__FILE__ ));
 	    wp_enqueue_script('jquery');
 	    wp_register_script( 'bootstrap-js', plugins_url('/js/bootstrap.min.js',__FILE__ ));

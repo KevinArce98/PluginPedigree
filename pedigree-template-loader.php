@@ -12,7 +12,7 @@ if ( ! class_exists( 'Pedigree_Template_Loader' ) )  {
     	function create_template_add_pedigree($listMadres,$listPadres)
     	{ ?>
     		<br>
-			<h2 class="text-center text-primary">Pedigree</h2>
+			<h2 class="text-center text-primary">Genética</h2>
 			<div class="container">
 				<?php global $errors;
 				if ($errors['showError'] !== "hide" && count($errors) > 0) {?>
@@ -35,6 +35,7 @@ if ( ! class_exists( 'Pedigree_Template_Loader' ) )  {
 					<div class="form-group col-md-12">
 					    <label for="name">Nombre Pedigree</label>
 					    <input type="text" class="form-control" id="name" name="name" required>
+					    <p style="color: #6B6B6B;">¡Ingrese un nombre que sea descriptivo para que pueda identificar el pedigree más adelante!</p>
 				  	</div>
 				  	<div class="form-group col-md-6">
 					  <label for="idMadre">Madre:</label>
@@ -64,24 +65,24 @@ if ( ! class_exists( 'Pedigree_Template_Loader' ) )  {
     		$pedigree = pedigree_get_with_mothers_fathers($id)[0];
 		$htmlText = "<div id='wrapper' class=''><span class='label'>Animal</span>
 		  <div class='branch lv1'>
-		    <div class='entry'><span class='label'><a href='".$pedigree->urlPadre."'>".$pedigree->padre."</a> <br>".$pedigree->registroPadre."</span>
+		    <div class='entry'><span class='label labelP'><a href='".$pedigree->urlPadre."'>".$pedigree->padre."</a> <br>".$pedigree->registroPadre."</span>
 		      <div class='branch lv2'>
-		        <div class='entry'><span class='label'><a href='".$pedigree->urlAbuelo."'>".$pedigree->abuelo."</a><br>".$pedigree->registroAbuelo."</span>
+		        <div class='entry'><span class='label labelP'><a href='".$pedigree->urlAbuelo."'>".$pedigree->abuelo."</a><br>".$pedigree->registroAbuelo."</span>
 		       
 		        </div>
 		        <div class='space'></div>
-		        <div class='entry'><span class='label'><a href='".$pedigree->urlAbuela."'>".$pedigree->Abuela."</a></span>
+		        <div class='entry'><span class='label labelM'><a href='".$pedigree->urlAbuela."'>".$pedigree->Abuela."</a></span>
 		        </div>
 		        
 		      </div>
 		    </div>
-		    <div class='entry'><span class='label'><a href='".$pedigree->urlMadre."'>".$pedigree->madre."</a></span>
+		    <div class='entry'><span class='label labelM'><a href='".$pedigree->urlMadre."'>".$pedigree->madre."</a></span>
 		      <div class='branch lv2'>
-		        <div class='entry'><span class='label'><a href='".$pedigree->urlAbuelo2."'>".$pedigree->abuelo2."</a></span>
+		        <div class='entry'><span class='label labelP'><a href='".$pedigree->urlAbuelo2."'>".$pedigree->abuelo2."</a></span>
 					
 		        </div>
 		        <div class='space'></div>
-		        <div class='entry'><span class='label'><a href='".$pedigree->urlAbuela2."'>".$pedigree->Abuela2."</a></span>
+		        <div class='entry'><span class='label labelM'><a href='".$pedigree->urlAbuela2."'>".$pedigree->Abuela2."</a></span>
 		          
 		        </div>
 		      </div>
