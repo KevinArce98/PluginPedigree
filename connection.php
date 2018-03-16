@@ -83,9 +83,22 @@ function initCreateTableUniko()
 	  idMadre INT NOT NULL,
 	  idPadre INT NOT NULL,
 	  shortcode varchar(100) NOT NULL,
-	  PRIMARY KEY  (id),
-	  FOREIGN KEY (idMadre) REFERENCES $table_name_mothers(id),
-	  FOREIGN KEY (idPadre) REFERENCES $table_name_fathers(id)
+	  PRIMARY KEY  (id)
 	) $charset_collate;";
 	dbDelta( $sql );
+}
+
+function desctivation_pedigree_plugin()
+{
+	global $wpdb;
+	$table_name_main = $wpdb->prefix . "pedigree_uniko"; 
+ 	$table_name_fathers = $wpdb->prefix . "fathers_uniko"; 
+ 	$table_name_mothers = $wpdb->prefix . "mothers_uniko"; 
+    $wpdb->query( "DROP TABLE IF EXISTS $table_name_main" );
+    $wpdb->query( "DROP TABLE IF EXISTS $table_name_fathers" );
+    $wpdb->query( "DROP TABLE IF EXISTS $table_name_mothers" );
+    delete_option("pedigree_uniko");
+/*
+	wp_deregister_style( $handle );
+	wp_deregister_script()*/
 }

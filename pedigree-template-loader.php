@@ -30,7 +30,15 @@ if ( ! class_exists( 'Pedigree_Template_Loader' ) )  {
 					</div>
 				<?php } ?>
 				<div class="row">
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br>
+						<div class="col-md-12">
+							<h5>Instrucciones</h5>
+							<p style="font-size: 15px">
+								<span class="text-primary">1-</span> Puede agrear la rama padre y la rama madre hacien click en el botón rojo que dice "Agregar Padre y Madre" de la parte de abajo.<br>
+								<span class="text-primary">2-</span> Si ya cuenta cuenta con alguna rama, puede dar click en el botón de la rama que hace falta para agregarla.<br>
+								<span class="text-primary">3-</span> Agregue un nombre al pedigree que sea similiar o igual al nombre del animal.
+							</p>
+						</div>
+						<br>
 						<div class="col-md-12 mt-3 mb-3 text-center">
 							
 							<a href="?page=add_new_pedigree_padre&type=long" class="btn btn-danger ">Agregar padre y madre</a>
@@ -57,9 +65,9 @@ if ( ! class_exists( 'Pedigree_Template_Loader' ) )  {
 					  </select>
 					</div>
 					<div class="form-group col-md-12">
-					    <label for="name">Nombre Pedigree</label>
+					    <label for="name">Nombre del Animal</label>
 					    <input type="text" class="form-control" id="name" name="name" required>
-					    <p style="color: #6B6B6B;">¡Ingrese un nombre que sea descriptivo para que pueda identificar el pedigree más adelante!</p>
+					    <p style="color: #6B6B6B;">¡Ingrese el nombre del animal al cual pertece este pedigree para que pueda identificar el pedigree más adelante!</p>
 				  	</div>
 				 </div>
 				<button type="submit" class="btn btn-success">Guardar</button>
@@ -71,7 +79,7 @@ if ( ! class_exists( 'Pedigree_Template_Loader' ) )  {
     	function create_template_pedigree($id){
     		require_once('pedigree-model.php');
     		$pedigree = pedigree_get_with_mothers_fathers($id)[0];
-		$htmlText = "<div id='wrapper' class=''><span class='label'>Animal</span>
+		$htmlText = "<div id='wrapper' class='table-responsive'>
 		  <div class='branch lv1'>
 		    <div class='entry'><span class='label labelP'><a href='".$pedigree->urlPadre."'>".$pedigree->padre."</a> <br>".$pedigree->registroPadre."</span>
 		      <div class='branch lv2'>

@@ -12,15 +12,15 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-require_once(ABSPATH . 'wp-content\plugins\pedigree-uniko\pedigree-shortcode.php');
+require_once(ABSPATH . 'wp-content/plugins/pedigree-uniko/pedigree-shortcode.php');
 require_once('pedigree-model.php');
-require_once(ABSPATH . 'wp-content\plugins\pedigree-uniko\connection.php' );
+require_once(ABSPATH . 'wp-content/plugins/pedigree-uniko/connection.php' );
 require_once('pedigree-template-loader.php');
 $errors = [];
 add_action('admin_menu', 'pedigree_uniko_options');
 add_action('admin_init', 'config_init');
 register_activation_hook( __FILE__, 'initCreateTableUniko' );
-
+register_deactivation_hook( __FILE__, 'desctivation_pedigree_plugin' );
 add_shortcode('pedigree', 'showShortcode');
 function cssPedigree() {
     echo '<link rel="stylesheet" type="text/css" href="'.plugins_url('/css/pedigree-template.css',__FILE__ ).'">';
@@ -34,8 +34,6 @@ if (! function_exists('config_init')) {
 		wp_enqueue_style('bootstrap');
 		wp_register_style('admin', plugins_url('/css/admin.css',__FILE__ ));
 		wp_enqueue_style('admin');
-	    wp_register_script( 'jquery-331', plugins_url('/js/jquery-3.3.1.min.js',__FILE__ ));
-	    wp_enqueue_script('jquery-331');
 	    wp_register_script( 'bootstrap-js', plugins_url('/js/bootstrap.min.js',__FILE__ ));
 	    wp_enqueue_script('bootstrap-js');
 	}
