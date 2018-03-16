@@ -54,10 +54,10 @@ function insertFather()
 		$result = insert($table_name_fathers, $_POST);
 		if ($result == 0) {
 			$errors['database'] = "Error al ingresar la información a la base de datos";
-			return;
+			return -1;
 		}
 	}else{
-		return;
+		return -1;
 	}
 	
 	$errors['showError'] = "hide";
@@ -76,10 +76,10 @@ function insertMother()
 		$result = insert($table_name_mothers, $_POST);
 		if ($result == 0) {
 			$errors['database'] = "Error al ingresar la información a la base de datos";
-			return;
+			return -1;
 		}
 	}else{
-		return;
+		return -1;
 	}
 	$errors['showError'] = "hide";
 	return $result;
@@ -92,8 +92,11 @@ function insertPedigree()
 		global $wpdb;
 		$table_name_pedigree = $wpdb->prefix . "pedigree_uniko";
 		unset($_POST['nonce']);
-		$_POST['shortcode'] = "[shortcode]"; 
-		$rsult = $wpdb->insert($table_name_pedigree, $_POST, array(
+		$listPedigree = array('name' => $_POST['name'], 
+			'idMadre' => $_POST['idMadre'],
+			'idPadre' => $_POST['idPadre'],
+			'shortcode' => "[shortcode]");
+		$rsult = $wpdb->insert($table_name_pedigree, $listPedigree, array(
 							'%s',
 							'%d',
 							'%d',
@@ -113,7 +116,7 @@ function insertPedigree()
 			return -1;
 		}
 	}else{
-		return;
+		return -1;
 	}
 	$errors['showError'] = "hide";
 	return $last_id;

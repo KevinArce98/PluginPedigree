@@ -29,32 +29,40 @@ if ( ! class_exists( 'Pedigree_Template_Loader' ) )  {
 					  Se guardó el registro correctamente
 					</div>
 				<?php } ?>
+				<div class="row">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br>
+						<div class="col-md-12 mt-3 mb-3 text-center">
+							
+							<a href="?page=add_new_pedigree_padre&type=long" class="btn btn-danger ">Agregar padre y madre</a>
+						</div>
+				</div>
+			
 				<form action="" method="post" accept-charset="utf-8">
 				<input type="hidden" value="<?php echo $nonceGlobal ?>" name="nonce">
 				<div class="row">
-					<div class="form-group col-md-12">
-					    <label for="name">Nombre Pedigree</label>
-					    <input type="text" class="form-control" id="name" name="name" required>
-					    <p style="color: #6B6B6B;">¡Ingrese un nombre que sea descriptivo para que pueda identificar el pedigree más adelante!</p>
-				  	</div>
 				  	<div class="form-group col-md-6">
-					  <label for="idMadre">Madre:</label>
+					  <label for="idMadre">Madre:</label> <a class="btn btn-sm btn-info mb-1" href="?page=add_new_pedigree_madre">Agregar solo madre</a>
 					  <select class="form-control" id="idMadre" name="idMadre" required>
 					  	<?php foreach ($listMadres as $item) { ?>
 					  		<option value="<?php echo $item->id; ?>"><?php echo $item->madre; ?></option>
 					  	<?php } ?>
 					  </select>
 					</div>
-					<div class="form-group col-md-6">
-					  <label for="idPadre">Padre:</label>
+					<div class="form-group col-md-6  text-right">
+					  <label for="idPadre">Padre:</label> <a class="btn btn-sm btn-info mb-1" href="?page=add_new_pedigree_padre">Agregar solo padre</a>
 					  <select class="form-control" id="idPadre" name="idPadre" required>
 					  	<?php foreach ($listPadres as $item) { ?>
 					  		<option value="<?php echo $item->id; ?>"><?php echo $item->padre; ?></option>
 					  	<?php } ?>
 					  </select>
 					</div>
+					<div class="form-group col-md-12">
+					    <label for="name">Nombre Pedigree</label>
+					    <input type="text" class="form-control" id="name" name="name" required>
+					    <p style="color: #6B6B6B;">¡Ingrese un nombre que sea descriptivo para que pueda identificar el pedigree más adelante!</p>
+				  	</div>
 				 </div>
-				<button type="submit" class="btn btn-success">Agregar Pedigree</button>
+				<button type="submit" class="btn btn-success">Guardar</button>
 			</form>
 			</div>
 			<?php

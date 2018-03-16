@@ -1,0 +1,10 @@
+#toplevel_page_pedigree_uniko > ul:last-child{
+  display: none;
+}
+
+.tablenav-pages-navspan{
+	height: 27.48px !important;
+}
+#the-list tr td[id]{
+	cursor: pointer;
+}

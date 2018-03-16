@@ -24,7 +24,7 @@ register_activation_hook( __FILE__, 'initCreateTableUniko' );
 add_shortcode('pedigree', 'showShortcode');
 function cssPedigree() {
     echo '<link rel="stylesheet" type="text/css" href="'.plugins_url('/css/pedigree-template.css',__FILE__ ).'">';
-    
+
 }
 add_action('wp_head', 'cssPedigree');
 if (! function_exists('config_init')) {
@@ -32,11 +32,16 @@ if (! function_exists('config_init')) {
 	{
 		wp_register_style('bootstrap', plugins_url('/css/bootstrap.css',__FILE__ ));
 		wp_enqueue_style('bootstrap');
-
-	    wp_register_script( 'jquery', plugins_url('/js/jquery-3.3.1.min.js',__FILE__ ));
-	    wp_enqueue_script('jquery');
+		wp_register_style('admin', plugins_url('/css/admin.css',__FILE__ ));
+		wp_enqueue_style('admin');
+	    wp_register_script( 'jquery-331', plugins_url('/js/jquery-3.3.1.min.js',__FILE__ ));
+	    wp_enqueue_script('jquery-331');
 	    wp_register_script( 'bootstrap-js', plugins_url('/js/bootstrap.min.js',__FILE__ ));
 	    wp_enqueue_script('bootstrap-js');
+	}
+	add_action('admin_footer', 'my_admin_add_js');
+	function my_admin_add_js() {
+		echo '<script src="'.plugins_url('/js/admin.js',__FILE__ ).'"></script>';
 	}
 }
 
@@ -52,6 +57,7 @@ if (! function_exists('pedigree_uniko_options')) {
 			'dashicons-networking', // icon
 			15 //position location menu
 		);
+
 		add_submenu_page(
 			'pedigree_uniko', //parent slug
 			'Agregar Pedigree',//page title
@@ -61,13 +67,14 @@ if (! function_exists('pedigree_uniko_options')) {
 			'add_new_display_page_pedigree'//callable funtion
 		);
 		add_submenu_page(
-			'pedigree_uniko', //parent slug
-			'Agregar Nuevo Padre',//page title
-			'Agregar Nuevo Padre',//menu title
-			'manage_options',//capability
-			'add_new_pedigree_padre',//menu_slug
-			'add_new_display_page_padre'//callable funtion
+			'pedigree_uniko',
+			'Agregar Nuevo Padre', 
+			'Agregar Nuevo Padre', 
+			'manage_options', 
+			'add_new_pedigree_padre', 
+			'add_new_display_page_padre'
 		);
+	
 		add_submenu_page(
 			'pedigree_uniko', //parent slug
 			'Agregar Nueva Madre',//page title
@@ -107,7 +114,7 @@ if (! function_exists('pedigree_uniko_page_display')) {
 		          $wp_list_table->prepare_items();
 
 		      } 
-		      echo "<br><a href='$link' class='btn btn-primary'>Crear Nuevo</a>";
+		      echo "<br><a href='?page=add_new_pedigree' class='btn btn-primary'>Crear Nuevo</a>";
 		      $wp_list_table->display();?>
 			</div>
 		      <?php
@@ -128,9 +135,6 @@ if ( !function_exists('add_new_display_page_pedigree')) {
 		}
 	}
 }
-if (isset($_POST['name'])) {
-	insertPedigree();
-}
 if (! function_exists('add_new_display_page_padre')) {
 	function add_new_display_page_padre()
 	{
@@ -142,8 +146,22 @@ if (! function_exists('add_new_display_page_padre')) {
 	}
 }
 
+if (isset($_POST['name'])) {
+	$retorno = insertPedigree();
+	if ($retorno !== -1) {
+		echo "<script type='text/javascript'>location.href = '?page=pedigree_uniko';</script>";
+	}
+}
+
 if (isset($_POST['padre'])) {
-	insertFather();
+	$retorno = insertFather();
+	if ($retorno !== -1) {
+		if (isset($_REQUEST['type'])) {
+			echo "<script type='text/javascript'>location.href = '?page=add_new_pedigree_madre&type=long';</script>";
+		}else{
+			echo "<script type='text/javascript'>location.href = '?page=add_new_pedigree';</script>";
+		}
+	}
 }
 
 if (! function_exists('add_new_display_page_madre')) {
@@ -154,5 +172,13 @@ if (! function_exists('add_new_display_page_madre')) {
 			$loader = new Pedigree_Template_Loader();
 			$loader->create_template_add_parents("madre", $nonceGlobal);
 		}
+	}
+}
+
+
+if (isset($_POST['madre'])) {
+	$retorno = insertMother();
+	if ($retorno !== -1) {
+		echo "<script type='text/javascript'>location.href = '?page=add_new_pedigree';</script>";
 	}
 }

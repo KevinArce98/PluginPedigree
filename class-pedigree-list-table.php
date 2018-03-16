@@ -35,8 +35,8 @@ class Pedigree_List_Table extends WP_List_Table {
 	  $columns = array(
 	 
 	    'name'=>__('Nombre', 'pedigree' ),
-	    'idMadre'=>__('Madre', 'pedigree' ),
-	    'idPadre'=>__('Padre', 'pedigree' ),
+	    'madre'=>__('Madre', 'pedigree' ),
+	    'padre'=>__('Padre', 'pedigree' ),
 	    'shortcode'=>__('Shortcode', 'pedigree' )
 	  );
 	  return $columns;
@@ -48,9 +48,10 @@ class Pedigree_List_Table extends WP_List_Table {
 		global $wpdb, $_wp_column_headers;
 	    $screen = get_current_screen();
 	    $table_name = $wpdb->prefix . "pedigree_uniko";
-
-		$query = "SELECT * FROM $table_name ORDER BY id DESC"; 
-		 
+		$table_name_fathers = $wpdb->prefix . "fathers_uniko";
+		$table_name_mothers = $wpdb->prefix . "mothers_uniko";
+		$query = "SELECT pu.id, pu.name, fu.padre, mu.madre, pu.shortcode FROM  $table_name pu LEFT JOIN "."$table_name_mothers mu ON pu.idMadre = mu.id LEFT JOIN $table_name_fathers fu ON pu.idPadre = fu.id  "; 
+		
 		$orderby = !empty($_GET["orderby"]) ? mysql_real_escape_string($_GET["orderby"]) : 'ASC';
 		$order = !empty($_GET["order"]) ? mysql_real_escape_string($_GET["order"]) : '';
 		if(!empty($orderby) & !empty($order)){ $query.=' ORDER BY '.$orderby.' '.$order; }	 
@@ -75,6 +76,7 @@ class Pedigree_List_Table extends WP_List_Table {
 		) );
 
 		$columns = $this->get_columns();
+
 		$hidden = array();
 		$sortable = $this->get_sortable_columns();
 		$this->_column_headers = array($columns, $hidden, $sortable);
@@ -86,7 +88,7 @@ class Pedigree_List_Table extends WP_List_Table {
 	function display_rows() {
 
         $records = $this->items;
- 
+ 		
         list( $columns, $hidden ) = $this->get_column_info();
  
 	        if( !empty( $records ) ) { foreach( $records as $rec ) {
@@ -94,7 +96,7 @@ class Pedigree_List_Table extends WP_List_Table {
 		        echo '<tr id="record_'.$rec->id.'">';
 
 		        foreach ( $columns as $column_name => $column_display_name ) {
-		 
+	
 			        $class = "class='$column_name column-$column_name'";
 			        $style = " style='padding-top: 15px;padding-bottom: 15px;'";
 
@@ -106,18 +108,18 @@ class Pedigree_List_Table extends WP_List_Table {
 			 
 			        switch ( $column_name ) {
 				       	case "name":     
-				        	echo '<td '.$attributes.'><a href="#">'.stripslashes($rec->name).'</a></td>';        
+				        	echo '<td '.$attributes.'>'.stripslashes($rec->name).'</td>';        
 				        	break;	
 
-				       	case "idMadre":     
-				        	echo '<td '.$attributes.'>'.stripslashes($rec->idMadre).'</td>';        
+				       	case "madre":     
+				        	echo '<td '.$attributes.'>'.stripslashes($rec->madre).'</td>';        
 				        	break;	
 
-				       	case "idPadre":     
-				        	echo '<td '.$attributes.'>'.stripslashes($rec->idPadre).'</td>';        
+				       	case "padre":     
+				        	echo '<td '.$attributes.'>'.stripslashes($rec->padre).'</td>';        
 				        	break;
 				        case "shortcode":     
-				        	echo '<td '.$attributes.'>'.stripslashes($rec->shortcode).'</td>';        
+				        	echo '<td '.$style.' class="text-danger" id="shrot-'.$rec->id.'" >'.stripslashes($rec->shortcode).'</td>';        
 				        	break;
 			        }
 
