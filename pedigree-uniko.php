@@ -22,10 +22,11 @@ add_action('admin_init', 'config_init');
 register_activation_hook( __FILE__, 'initCreateTableUniko' );
 register_deactivation_hook( __FILE__, 'desctivation_pedigree_plugin' );
 add_shortcode('pedigree', 'showShortcode');
-function cssPedigree() {
-    echo '<link rel="stylesheet" type="text/css" href="'.plugins_url('/css/pedigree-template.css',__FILE__ ).'">';
 
+function cssPedigree() {
+ echo '<link rel="stylesheet" type="text/css" href="'.plugins_url('/css/pedigree-new.css',__FILE__ ).'">';
 }
+
 add_action('wp_head', 'cssPedigree');
 if (! function_exists('config_init')) {
 	function config_init()

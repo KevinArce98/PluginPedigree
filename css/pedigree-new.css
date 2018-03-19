@@ -1,0 +1,41 @@
+.child{
+    color: #03111C !important;
+    font-size: 15px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 25px;
+}
+.male a{
+    color: #0067B9 !important;
+}
+.male a:hover{
+    color: #A4C8FF !important;
+    text-shadow: 0px 2px 1px rgba(0, 0, 0, 1);  
+}
+.male {
+    color: #0067B9 !important;
+    font-size: 15px;
+    text-align: left;
+    vertical-align: middle;
+    padding-top: 25px !important;
+    padding-bottom: 25px !important;
+}
+.female a{
+     color: #DC6B2F !important;
+}
+.female a:hover{
+     color: #A4C8FF !important;
+     text-shadow: 0px 2px 1px rgba(0, 0, 0, 1); 
+}
+.female {
+    color: #DC6B2F !important;
+    font-size: 15px;
+    text-align: left;
+    vertical-align: middle;
+    padding-top: 25px !important;
+    padding-bottom: 25px !important;
+
+}   
+#pedigree *{
+    border:none;
+}

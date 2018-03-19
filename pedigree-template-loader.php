@@ -79,32 +79,72 @@ if ( ! class_exists( 'Pedigree_Template_Loader' ) )  {
     	function create_template_pedigree($id){
     		require_once('pedigree-model.php');
     		$pedigree = pedigree_get_with_mothers_fathers($id)[0];
-		$htmlText = "<div id='wrapper' class='table-responsive'>
-		  <div class='branch lv1'>
-		    <div class='entry'><span class='label labelP'><a href='".$pedigree->urlPadre."'>".$pedigree->padre."</a> <br>".$pedigree->registroPadre."</span>
-		      <div class='branch lv2'>
-		        <div class='entry'><span class='label labelP'><a href='".$pedigree->urlAbuelo."'>".$pedigree->abuelo."</a><br>".$pedigree->registroAbuelo."</span>
-		       
-		        </div>
-		        <div class='space'></div>
-		        <div class='entry'><span class='label labelM'><a href='".$pedigree->urlAbuela."'>".$pedigree->Abuela."</a></span>
-		        </div>
-		        
-		      </div>
-		    </div>
-		    <div class='entry'><span class='label labelM'><a href='".$pedigree->urlMadre."'>".$pedigree->madre."</a></span>
-		      <div class='branch lv2'>
-		        <div class='entry'><span class='label labelP'><a href='".$pedigree->urlAbuelo2."'>".$pedigree->abuelo2."</a></span>
-					
-		        </div>
-		        <div class='space'></div>
-		        <div class='entry'><span class='label labelM'><a href='".$pedigree->urlAbuela2."'>".$pedigree->Abuela2."</a></span>
-		          
-		        </div>
-		      </div>
-		    </div>
-		  </div>
-		</div>";
+		$htmlText = "<table id='pedigree' cellpadding='0' cellspacing='0' width='100%'>
+    <tbody>
+	    <tr>
+			<td rowspan='32' width='17%' class='child'>".$pedigree->name."
+			</td>
+			<td rowspan='32' width='1%'><div style='height: 130px;  width: 15px; border: 2px solid gray; border-right: none;'></div></td>
+			<td rowspan='16' width='17%' class='male'><a href='".$pedigree->urlPadre."'>".$pedigree->padre."</a><br>";
+		$htmlText .=  (!empty($pedigree->registroPadre)) ? 'Id ='. $pedigree->registroPadre : '';
+		$htmlText.="</td>
+			<td rowspan='16' width='1%'>
+				<div style='height: 70px;  width: 15px; border: 2px solid gray; border-right: none;'></div>
+			</td>
+			<td rowspan='8' width='17%' class='male'><a href='".$pedigree->urlAbuelo."'>".$pedigree->abuelo."</a><br>";
+		$htmlText .=  (!empty($pedigree->registroAbuelo)) ? 'Id ='. $pedigree->registroAbuelo : '';
+		$htmlText.="</td>
+	    </tr>
+	     <tr></tr>
+	     <tr></tr>
+	     <tr></tr>
+	     <tr></tr>
+	     <tr></tr>
+	     <tr></tr>
+	     <tr></tr>
+	     <tr>
+		<td rowspan='8' width='17%' class='female'><a href='".$pedigree->urlAbuela."'>".$pedigree->Abuela."</a><br>";
+		$htmlText .=  (!empty($pedigree->registroAbuela)) ? 'Id ='. $pedigree->registroAbuela : '';
+		$htmlText.="</td>
+	     </tr><tr>
+	     </tr><tr>
+	     </tr><tr>
+	     </tr><tr>
+	     </tr><tr>
+	     </tr><tr>
+	     </tr><tr>
+	     </tr><tr>
+		<td rowspan='16' width='17%' class='female'><a href='".$pedigree->urlMadre."'>".$pedigree->madre."</a><br>";
+		$htmlText .=  (!empty($pedigree->registroMadre)) ? 'Id ='. $pedigree->registroMadre : '';
+		$htmlText.="</td>
+		<td rowspan='16' width='1%'>
+				<div style='height: 70px;  width: 15px; border: 2px solid gray; border-right: none;'></div>
+			</td>
+		<td rowspan='8' width='17%' class='male'><a href='".$pedigree->urlAbuelo2."'>".$pedigree->abuelo2."</a><br>";
+		$htmlText .=  (!empty($pedigree->registroAbuelo2)) ? 'Id ='. $pedigree->registroAbuelo2 : '';
+		$htmlText.="</td>
+	     </tr><tr>
+	     </tr><tr>
+	     </tr><tr>
+	     </tr><tr>
+	     </tr><tr>
+	     </tr><tr>
+	     </tr><tr>
+	     </tr><tr>
+		<td rowspan='8' width='17%' class='female'><a href='".$pedigree->urlAbuela2."'>".$pedigree->Abuela2."</a><br>";
+		$htmlText .=  (!empty($pedigree->registroAbuela2)) ? 'Id ='. $pedigree->registroAbuela2 : '';
+		$htmlText.="</td>
+	     </tr><tr>
+	     </tr><tr>
+	     </tr><tr>
+	     </tr><tr>
+	     </tr><tr>
+	     </tr><tr>
+	     </tr><tr>
+	     </tr><tr>
+	     </tr>
+ </tbody>
+</table>";
 		return $htmlText;
     	}
 
